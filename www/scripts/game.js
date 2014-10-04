@@ -6,7 +6,7 @@ $(document).on("ready", function(){
 		timer_layer;
 		
 	var timer_bar = {
-		seconds: 60,
+		seconds: 10,
 		shape:   make_rectangle(10,50,220,20, "orange"),
 		text:    ""
 	};
@@ -22,7 +22,7 @@ $(document).on("ready", function(){
 	var MINIMUM_WIDTH     = 240, 
 		MINIMUM_HEIGHT    = 320,
 		SHAPE_SIDE_LENGTH = 50,
-		GAME_TIME         = 60;
+		GAME_TIME         = 10;
 	
 	/**
 	 * Generates a random shape.
@@ -245,7 +245,7 @@ $(document).on("ready", function(){
 	}
 	
 	/**
-	 *
+	 * Resizes the canvas to fit the screen.
 	 * http://community.createjs.com/discussions/easeljs/655-gameplay_layer-scaling-xy-upon-windows-heightwidth
 	 */
 	function resize_canvas(){
@@ -277,6 +277,10 @@ $(document).on("ready", function(){
 		}
 	}
 	
+	/**
+	 * Handles the replay screen.
+	 * Currently the no option doesn't work.
+	 */
 	function handle_replay(evt){
 		var point = hud_layer.globalToLocal(evt.stageX, evt.stageY);
 		
@@ -285,8 +289,8 @@ $(document).on("ready", function(){
 			timer_bar.shape   = make_rectangle(10,50,220,20, "orange");
 			game_state.current_points = 0;
 			stage.removeChild(hud_layer);
-			stage.removeEventListener('click', handle_input, false);
-			stage.addEventListener('click', handle_input, false);
+			
+			init();
 			generate_game();
 			timer_id = setInterval(loop, 1000);
 		} else if (get_grid_at(point.x, point.y) == 6){
@@ -296,6 +300,7 @@ $(document).on("ready", function(){
 	
 	/**
 	 * Does the timer.
+	 * Upon 
 	 */
 	function loop(){
 		if (timer_bar.seconds <= 0){
@@ -343,15 +348,11 @@ $(document).on("ready", function(){
 	 * Sets up the resize 
 	 */
 	function init(){
-		window.addEventListener('resize', resize_canvas, false);
-		window.addEventListener('orientationchange', resize_canvas, false);
-	
 		stage             = new createjs.Stage("myCanvas");
 		timer_bar.seconds = GAME_TIME;
 		timer_bar.text    = make_text(210, 70, GAME_TIME+"", 14, "#000");
 		
 		createjs.Touch.enable(stage);
-		stage.addEventListener('click', handle_input, false);
 	}
 	
 	/**
@@ -381,11 +382,15 @@ $(document).on("ready", function(){
 		stage.addChild(timer_layer);
 		stage.addChild(point_layer);
 		
+		stage.addEventListener('click', handle_input, false);
+		
 		resize_canvas();
 		stage.update();
 	}
 	
 	
+	window.addEventListener('resize', resize_canvas, false);
+	window.addEventListener('orientationchange', resize_canvas, false);
 	init();
 	generate_game();
 	timer_id = setInterval(loop, 1000);

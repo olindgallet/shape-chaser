@@ -1,11 +1,9 @@
 ###shape-chaser
 ============
 #What it is:
-A brief attempt at making a game where the goal is to match as many shapes as possible in 60 seconds. Still buggy.
+A brief attempt at making a game where the goal is to match as many shapes as possible in 60 seconds. 
 
-Most notably is clearInterval not working for removing the animation loop when a player replays.  I don't know
-if this is a coding bug, hardware issue, or what, but it doesn't work on my Android tablet.
-
+Works fine when compiled with Cocoon JS.  Phonegap not so much.
 ============
 #And on with the game description:
 ```

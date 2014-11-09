@@ -5,7 +5,6 @@ A brief attempt at making a game where the goal is to match as many shapes as po
 
 Works fine when compiled with Cocoon JS.  Phonegap not so much.
 
-Game Description
 ============
 #And on with the game description:
 ```
